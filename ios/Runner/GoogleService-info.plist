@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>900191265566-qdg3skbd290o5mhmfl1b32u35ldhp6u1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.900191265566-qdg3skbd290o5mhmfl1b32u35ldhp6u1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCVpPcza1KfpBZ2rL0IjtG4gqeXPOmDv3k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>900191265566</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>rpl.notakita</string>
+	<key>PROJECT_ID</key>
+	<string>notakitaa</string>
+	<key>STORAGE_BUCKET</key>
+	<string>notakitaa.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:900191265566:ios:4a3f3f23e20db210</string>
+	<key>DATABASE_URL</key>
+	<string>https://notakitaa.firebaseio.com</string>
+</dict>
+</plist>
