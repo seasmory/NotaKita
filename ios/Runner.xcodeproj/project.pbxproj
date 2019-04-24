@@ -83,7 +83,6 @@
 				AE2691C581ACB56EE90B1FB4 /* Pods-Runner.release.xcconfig */,
 				292BBEA957BC1FDE319ABD31 /* Pods-Runner.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -399,7 +398,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.testapp;
+				PRODUCT_BUNDLE_IDENTIFIER = rpl.notakita;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -524,7 +523,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.testapp;
+				PRODUCT_BUNDLE_IDENTIFIER = rpl.notakita;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -547,7 +546,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.testapp;
+				PRODUCT_BUNDLE_IDENTIFIER = rpl.notakita;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
