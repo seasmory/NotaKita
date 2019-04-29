@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "900191265566",
+    "firebase_url": "https://notakitaa.firebaseio.com",
+    "project_id": "notakitaa",
+    "storage_bucket": "notakitaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900191265566:android:4a3f3f23e20db210",
+        "android_client_info": {
+          "package_name": "rpl.notakita"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900191265566-afqk4c096oh7loljapinhtav2pajjqo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvDstr-ceJ7bAQQp2d_luPIhDMcw8wz-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900191265566-afqk4c096oh7loljapinhtav2pajjqo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
