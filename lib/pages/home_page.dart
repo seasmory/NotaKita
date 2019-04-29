@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notakita/services/authentication.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:notakita/models/events.dart';
-import 'event_page.dart';
+import 'add_event_page.dart';
 import 'eventTab.dart';
 import 'dart:async';
 
@@ -25,20 +25,14 @@ class _HomePageState extends State<HomePage> {
   final FirebaseDatabase _database = FirebaseDatabase.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  TextEditingController nameController = new TextEditingController();
-  TextEditingController descController = new TextEditingController();
   StreamSubscription<Event> _onEventAddedSubscription;
   StreamSubscription<Event> _onEventChangedSubscription;
 
   Query _eventQuery;
 
-  bool _isEmailVerified = false;
-
   @override
   void initState() {
     super.initState();
-
-    _checkEmailVerification();
 
     _eventList = new List();
     _eventQuery = _database
@@ -54,67 +48,6 @@ class _HomePageState extends State<HomePage> {
         _userId = user.uid.toString();
       });
     });
-  }
-
-  void _checkEmailVerification() async {
-    _isEmailVerified = await widget.auth.isEmailVerified();
-    if (!_isEmailVerified) {
-      _showVerifyEmailDialog();
-    }
-  }
-
-  void _resentVerifyEmail(){
-    widget.auth.sendEmailVerification();
-    _showVerifyEmailSentDialog();
-  }
-
-  void _showVerifyEmailDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Verify your account"),
-          content: new Text("Please verify account in the link sent to email"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Resent link"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _resentVerifyEmail();
-              },
-            ),
-            new FlatButton(
-              child: new Text("Dismiss"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _showVerifyEmailSentDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Verify your account"),
-          content: new Text("Link to verify account has been sent to your email"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Dismiss"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -194,10 +127,15 @@ class _HomePageState extends State<HomePage> {
               },
               child: FlatButton(
                 child: new Text(name),
-                onPressed: (){},
-                ),
+                onPressed: (){
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+                    return new EventTab(userId: _userId, auth: widget.auth,index: index);
+                  }));
+                },
+              ),
             );
-          });
+          },
+        );
     } else {
       return Center(child: Text("Welcome. Your list is empty",
         textAlign: TextAlign.center,
@@ -209,7 +147,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text('Flutter login demo'),
+          title: new Text('NotaKita'),
           actions: <Widget>[
             new FlatButton(
                 child: new Text('Logout',
@@ -220,7 +158,7 @@ class _HomePageState extends State<HomePage> {
         body: _showEventList(),
         floatingActionButton: FloatingActionButton(
           onPressed: _showEventForm,
-          tooltip: 'Increment',
+          tooltip: 'Add a new event',
           child: Icon(Icons.add),
         )
     );

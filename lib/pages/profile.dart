@@ -11,7 +11,6 @@ class EventDetailPage extends StatefulWidget {
 }
 
 class _EventDetailPageState extends State<EventDetailPage> {
-  double _sliderValue = 10.0;
 
   Widget get eventProfile {
     return new Container(
@@ -31,10 +30,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
         ],
       ),
     );
-  }
-
-  void updateSlider(double newRating) {
-    setState(() => _sliderValue = newRating);
   }
 
   @override

@@ -103,7 +103,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     _isIos = Theme.of(context).platform == TargetPlatform.iOS;
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text('Flutter login demo'),
+          title: new Text('Notakita'),
         ),
         body: Stack(
           children: <Widget>[
@@ -150,6 +150,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           child: new ListView(
             shrinkWrap: true,
             children: <Widget>[
+              _showLogo(),
               _showEmailInput(),
               _showPasswordInput(),
               _showPrimaryButton(),
@@ -175,6 +176,20 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         height: 0.0,
       );
     }
+  }
+
+  Widget _showLogo() {
+    return new Hero(
+      tag: 'hero',
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
+        child: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          radius: 48.0,
+          child: Image.asset('assets/flutter-icon.png'),
+        ),
+      ),
+    );
   }
 
   Widget _showEmailInput() {
@@ -237,7 +252,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           child: new RaisedButton(
             elevation: 5.0,
             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-            color: Colors.blue,
+            color: Colors.grey,
             child: _formMode == FormMode.LOGIN
                 ? new Text('Login',
                     style: new TextStyle(fontSize: 20.0, color: Colors.white))

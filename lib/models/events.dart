@@ -21,4 +21,10 @@ class Events {
       "description": description,
     };
   }
+
+  Events.fromJson(this.key,Map data) {
+    name = data['name'];
+    description = data['description'];
+    userId = data['userId'];
+  }
 }
