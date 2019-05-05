@@ -113,6 +113,10 @@ class EventTabState extends State<EventTab> {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            leading: new IconButton(
+              icon: new Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(context) ,
+            ),
             bottom: TabBar(
               tabs: [
                 Tab(text: "Profile"),
