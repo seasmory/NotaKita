@@ -4,27 +4,18 @@ class Events {
   String key;
   String name;
   String description;
-  String userId;
 
-  Events(this.name, this.userId, this.description);
+  Events(this.name, this.description);
 
   Events.fromSnapshot(DataSnapshot snapshot) :
     key = snapshot.key,
-    userId = snapshot.value["userId"],
     name = snapshot.value["name"],
     description = snapshot.value["description"];
 
   toJson() {
     return {
-      "userId": userId,
       "name": name,
       "description": description,
     };
-  }
-
-  Events.fromJson(this.key,Map data) {
-    name = data['name'];
-    description = data['description'];
-    userId = data['userId'];
   }
 }

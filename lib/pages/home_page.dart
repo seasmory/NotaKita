@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Events> _eventList;
   String _userId = "";
+  String check;
 
   final FirebaseDatabase _database = FirebaseDatabase.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -29,7 +30,9 @@ class _HomePageState extends State<HomePage> {
   StreamSubscription<Event> _onEventChangedSubscription;
 
   Query _eventQuery;
+  Query _eventQuery2;
 
+  DataSnapshot e;
   @override
   void initState() {
     super.initState();
@@ -37,10 +40,13 @@ class _HomePageState extends State<HomePage> {
     _eventList = new List();
     _eventQuery = _database
         .reference()
-        .child("event")
-        .orderByChild("userId")
-        .equalTo(widget.userId);
-    _onEventAddedSubscription = _eventQuery.onChildAdded.listen(_onEntryAdded);
+        .child("event");
+    _eventQuery2 = _database
+        .reference()
+        .child("eventUser")
+        .orderByChild(widget.userId)
+        .equalTo("true");
+    _onEventAddedSubscription = _eventQuery2.onChildAdded.listen(_onEntryAdded);
     _onEventChangedSubscription = _eventQuery.onChildChanged.listen(_onEntryChanged);
 
     widget.auth.getCurrentUser().then((user){
@@ -68,8 +74,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   _onEntryAdded(Event event) {
-    setState(() {
-      _eventList.add(Events.fromSnapshot(event.snapshot));
+    _database.reference().child("event").child(event.snapshot.key).once().then((DataSnapshot data){
+      setState(() {
+        _eventList.add(Events.fromSnapshot(data));
+      });
     });
   }
 
@@ -119,20 +127,15 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (BuildContext context, int index) {
             String eventId = _eventList[index].key;
             String name = _eventList[index].name;
-            return Dismissible(
+            return FlatButton(
               key: Key(eventId),
-              background: Container(color: Colors.red),
-              onDismissed: (direction) async {
-                _deleteEvent(eventId, index);
+              child: new Text(name),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EventTab(userId: _userId, auth: widget.auth, eventId: eventId)
+                ));
               },
-              child: FlatButton(
-                child: new Text(name),
-                onPressed: (){
-                  Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-                    return new EventTab(userId: _userId, auth: widget.auth,index: index);
-                  }));
-                },
-              ),
             );
           },
         );

@@ -19,23 +19,24 @@ class _AddEventState extends State<AddEvent> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final descController = TextEditingController();
-  Query _eventQuery;
+  String userId;
 
   void initState() {
     super.initState();
-
-     _eventQuery = _database
-      .reference()
-      .child("event")
-      .orderByChild("userId")
-      .equalTo(widget.userId);
+    userId = widget.userId;
   }
 
   _addNewEvent(String eventName,String eventDesc) {
     if (eventName.length > 0) {
-
-      Events event = new Events(eventName.toString(), widget.userId, eventDesc.toString());
-      _database.reference().child("event").push().set(event.toJson());
+      DatabaseReference dataRef = _database.reference();
+      String key = dataRef.reference().child("event").push().key;
+      _database.reference().child("event").child(key).set({
+        "name": eventName.toString(),
+        "description": eventDesc.toString(),
+      });
+      _database.reference().child("eventUser").child(key).set({
+        "$userId": "true",
+      });
     }
   }
 

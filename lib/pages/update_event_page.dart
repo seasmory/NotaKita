@@ -5,11 +5,11 @@ import 'package:notakita/models/events.dart';
 import 'dart:async';
 
 class UpdateEventPage extends StatefulWidget {
-  UpdateEventPage({Key key, this.auth, this.userId, this.index})
+  UpdateEventPage({Key key, this.auth, this.userId, this.eventId})
       : super(key: key);
   final BaseAuth auth;
   final String userId;
-  final int index;
+  final String eventId;
 
   @override
   _UpdateEventPageState createState() => new _UpdateEventPageState();
@@ -17,6 +17,7 @@ class UpdateEventPage extends StatefulWidget {
 
 class _UpdateEventPageState extends State<UpdateEventPage> {
   List<Events> _eventList;
+  Events e;
   final FirebaseDatabase _database = FirebaseDatabase.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -34,8 +35,8 @@ class _UpdateEventPageState extends State<UpdateEventPage> {
     _eventQuery = _database
         .reference()
         .child("event")
-        .orderByChild("userId")
-        .equalTo(widget.userId);
+        .orderByKey()
+        .equalTo(widget.eventId);
     _onEventAddedSubscription = _eventQuery.onChildAdded.listen(_onEntryAdded);
     _onEventChangedSubscription = _eventQuery.onChildChanged.listen(_onEntryChanged);
   }
@@ -48,31 +49,24 @@ class _UpdateEventPageState extends State<UpdateEventPage> {
   }
 
   _onEntryChanged(Event event) {
-    var oldEntry = _eventList.singleWhere((entry) {
-      return entry.key == event.snapshot.key;
-    });
     setState(() {
-      _eventList[_eventList.indexOf(oldEntry)] = Events.fromSnapshot(event.snapshot);
+      e = Events.fromSnapshot(event.snapshot);
     });
     _updateController();
   }
 
   _onEntryAdded(Event event) {
-    setState(() {
-      _eventList.add(Events.fromSnapshot(event.snapshot));
-    });
-  _updateController();
+    setState((){e = Events.fromSnapshot(event.snapshot);});
+    _updateController();
   }
 
   _updateController(){
-    if(_eventList[widget.index] != null){
-      nameController.text = _eventList[widget.index].name;
-      descController.text = _eventList[widget.index].description;
-    }
+    nameController.text = e.name;
+     descController.text = e.description;
   }
 
   _updateEvent(String newName,String newDesc) {
-    _database.reference().child("event").child(_eventList[widget.index].key).update({
+    _database.reference().child("event").child(e.key).update({
       'name': newName.toString(),
       'description': newDesc.toString(),
     });
